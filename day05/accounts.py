@@ -18,6 +18,8 @@ class Account:
   def withdraw(self,ammount):
      self.balance -=ammount
      return self.balance
+  def statement(self):
+    return (f"owner:-{self.owner} \n account number:-{self.acc_number}")
   
 
 class SavingAcount(Account):
@@ -26,28 +28,28 @@ class SavingAcount(Account):
     self.rate = rate
   def add_interest(self):
     self.deposit(self.balance * self.rate)
+  def statement(self):
+    return (f"Type:- saving Account \n owner:-{self.owner} \n account number:-{self.acc_number}")
 
 class CurrentAccount(Account):
   def __init__(self, owner, acc_number, balance=0, overdraft=1000):
     super().__init__(owner, acc_number, balance)
     self.overdraft = overdraft
+  def statement(self):
+    return (f"Type: Current Account \n owner:-{self.owner} \naccount number:-{self.acc_number}")
+  def withdraw(self,ammount):
+     if ammount > self.overdraft:
+       raise ValueError ("The overdraft limit is 1000")
+     self.balance -=ammount
+     return self.balance
   
   
-Bereket = Account("Bereket Zerihun",100023467891,8000000)
- #Before deposit
-print(Bereket.balance)  
+Ezra = CurrentAccount("Ezra Kebede",100023467891,8000000)
+Nahom = SavingAcount("Nahom Natnael",100023467891,8000000)
 
-Bereket.deposit(1000000)
+Ezra.withdraw(100)
+print(Ezra.balance)
 
- #After deposit
-print(Bereket.balance)  
-
-Bereket.withdraw(1000000)
- #After withdraw
-print(Bereket.balance)  
-
-
-
-
-
+print(Ezra.statement())
+print(Nahom.statement())
 
