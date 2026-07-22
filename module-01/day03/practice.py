@@ -39,7 +39,7 @@ def cheap_items():
 # question 5: write and read
 def write_read():
 
-  with open("names.txt", "w") as file:
+  with open("project/names.txt", "w") as file:
     file.write("Mahlet Belay\n")
     file.write("Melat Gebeyeu\n")
     file.write("Natnael Kebede\n")
