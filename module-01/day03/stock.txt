@@ -1,4 +1,4 @@
-Paracetamol,1100
+Paracetamol,1400
 Amoxicillin,500
 Metformin,4
 Blood Pressure Monitor,9
