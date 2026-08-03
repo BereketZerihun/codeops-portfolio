@@ -27,7 +27,7 @@ def reverseCompare(num):
    else:
         print("not ok")
 print("question 2")              
-reverseCompare(23)
+reverseCompare(32)
 
 
 #question 3
