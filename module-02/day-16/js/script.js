@@ -9,10 +9,10 @@ let PerPerson = 0
 let total = 0 
 
 if (bill > 300 ){
-  total = bill + 30
+  total = bill + (bill * 0.1) 
 }
 else {
-  total = bill + 15
+  total = bill + (bill * 0.05)
 }
 PerPerson = total/partySize
 
