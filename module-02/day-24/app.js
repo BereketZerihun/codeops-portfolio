@@ -65,7 +65,13 @@ function displayMenu(items) {
 
 // Helper: Calculate Total Price
 function cartTotal() {
-  return state.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  let total = 0;
+  
+  for (const item of state.cart) {
+    total += item.price * item.quantity;
+  }
+  
+  return total;
 }
 
 // 6. Render Cart Items and Total
