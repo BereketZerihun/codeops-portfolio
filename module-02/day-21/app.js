@@ -2,7 +2,9 @@
 const form = document.getElementById('form');
 const phoneInput = document.getElementById('phone');
 const nameInput = document.getElementById('name');
-const errorMsg = document.getElementById('form-error');
+
+const phoneError = document.getElementById('phone-error');
+const nameError = document.getElementById('name-error');
 const successMsg = document.getElementById('form-success');
 const signupCountMsg = document.getElementById('signup-count');
 
@@ -14,21 +16,29 @@ const formhandler = (event) => {
     let phone_validate = /^(?:\+251|0)(?:9|7)\d{8}$/; 
     let name_validator = /^[a-zA-Z\s -]+$/; 
 
-    // Reset old messages
-    errorMsg.textContent = '';
+    // Reset previous errors and success messages
+    phoneError.textContent = '';
+    nameError.textContent = '';
     successMsg.textContent = '';
 
+    let hasError = false;
+
+    // Check Phone Validation
     if (!phone_validate.test(phone)){ 
-        errorMsg.textContent = 'phone number is not correct'; 
-        return; 
+        phoneError.textContent = 'phone number is not correct'; 
+        hasError = true;
     }
 
+    // Check Name Validation
     if (!name_validator.test(name)){ 
-        errorMsg.textContent = 'name format is not correct'; 
-        return; 
+        nameError.textContent = 'name format is not correct'; 
+        hasError = true;
     } 
+
+    // Stop if there is any error
+    if (hasError) return;
     
-    // If valid
+    // Save to LocalStorage if valid
     let signups = JSON.parse(localStorage.getItem('signups')) || []; 
     signups.push({ phone, name }); 
     localStorage.setItem('signups', JSON.stringify(signups)); 
@@ -36,7 +46,7 @@ const formhandler = (event) => {
     successMsg.textContent = 'name and phone number have been stored in local storage'; 
     form.reset(); 
 
-    // Update the signup count text dynamically
+    // Update signup count
     signupCountMsg.textContent = `${signups.length} people have signed up.`;
 }; 
 

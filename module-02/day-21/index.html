@@ -13,14 +13,18 @@
     <p id="signup-count" class="info"></p>
 
     <form action="" class="login" method="POST" id="form">
-      <label for="phone">phone number</label><br>
-      <input type="tel" id="phone"><br><br>
+      <div>
+        <label for="phone">phone number</label><br>
+        <input type="tel" id="phone"><br>
+        <p id="phone-error" class="error"></p>
+      </div>
 
-      <label for="name">Name</label><br>
-      <input type="text" id="name"><br><br>
+      <div>
+        <label for="name">Name</label><br>
+        <input type="text" id="name"><br>
+        <p id="name-error" class="error"></p>
+      </div>
 
-      <!-- Status messages display area -->
-      <p id="form-error" class="error"></p>
       <p id="form-success" class="success"></p>
 
       <input type="submit" value="Submit">
