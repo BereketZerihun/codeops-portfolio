@@ -1,18 +1,14 @@
 import Dish from './Dish/Dish'
 import style from './Menu.module.css'
+import { Dishes } from './data'
 function Menu (){
-  const Dishes = [
-    { id: 1, name: 'Doro wot', price: 350 },
-    { id: 2, name: 'ketifo', price: 400 },
-    { id: 3, name: 'shiro', price: 150 },
-    { id: 3, name: 'beyayenetu', price: 150 },
-    { id: 3, name: 'mahberawi', price: 150 }
-
-
-  ]
+ const shown = Dishes.filter(dish=>dish.category === "Main")
+ if(shown.length === 0){
+  return(<h2>the category is empty</h2>) 
+ }
   return (
     <div className={style.dish}>
-      {Dishes.map(item=>(
+      {shown.map(item=>(
         <Dish name={item.name} price={item.price}/>
       ))}
     </div>
