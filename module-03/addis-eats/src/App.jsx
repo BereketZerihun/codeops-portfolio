@@ -1,54 +1,47 @@
-import { useState } from "react";
-import { CartProvider, useCart } from "./context/CartContext";
-import Menu from "./components/Menu";
-import Cart from "./components/Cart";
-import OrderSuccess from "./components/OrderSuccess";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import ErrorBoundary from "./components/ErrorBoundary";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
-function AppContent() {
-  const { showSuccess, totalItems } = useCart();
-  const [cartOpen, setCartOpen] = useState(false);
+const HomePage = lazy(() => import("./pages/HomePage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
+const SuccessPage = lazy(() => import("./pages/SuccessPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1 className="app-title">Habesha Eats</h1>
-        <button
-          className="cart-toggle-btn"
-          onClick={() => setCartOpen(!cartOpen)}
-        >
-          Cart ({totalItems})
-        </button>
-      </header>
-
-      <div className="app-body">
-        <main className="menu-section">
-          <Menu />
-        </main>
-
-        {cartOpen && (
-          <aside className="cart-sidebar">
-            <button
-              className="close-cart-btn"
-              onClick={() => setCartOpen(false)}
-            >
-              Close
-            </button>
-            <Cart />
-          </aside>
-        )}
-      </div>
-
-      {showSuccess && <OrderSuccess />}
-    </div>
-  );
+function PageLoader() {
+  return <div className="page-loader">Loading...</div>;
 }
 
 function App() {
   return (
-    <CartProvider>
-      <AppContent />
-    </CartProvider>
+    <BrowserRouter>
+      <div className="app">
+        <Navbar />
+        <ErrorBoundary>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/success" element={<SuccessPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
+      </div>
+    </BrowserRouter>
   );
 }
 
