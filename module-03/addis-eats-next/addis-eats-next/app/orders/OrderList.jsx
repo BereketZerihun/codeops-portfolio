@@ -1,3 +1,4 @@
+// Day 45: Next.js Advanced Project
 "use client";
 
 import useSWR from "swr";
@@ -6,9 +7,8 @@ import CancelButton from "./CancelButton";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function OrderList({ initialOrders }) {
-  // Polls every 5 seconds
   const { data, error } = useSWR("/api/orders", fetcher, {
-    fallbackData: { data: initialOrders }, // SEEDING: no loading spinner!
+    fallbackData: { data: initialOrders },
     refreshInterval: 5000,
   });
 

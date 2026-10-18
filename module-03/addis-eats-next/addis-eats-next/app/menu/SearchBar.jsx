@@ -1,3 +1,4 @@
+// Day 45: Next.js Advanced Project
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,7 +10,6 @@ export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
 
-  // Debounce logic: wait 500ms after typing stops
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query), 500);
     return () => clearTimeout(timer);

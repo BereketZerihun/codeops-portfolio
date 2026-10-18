@@ -1,3 +1,4 @@
+<!-- Day 45: Next.js Advanced Project -->
 # AUTH.md
 
 ## Route Protection Matrix

@@ -1,3 +1,4 @@
+// Day 45: Next.js Advanced Project
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import { signOut } from "./actions";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  metadataBase: new URL("https://addis-eats-demo.vercel.app"), // Update with your Vercel URL later
+  metadataBase: new URL("https://addis-eats-demo.vercel.app"),
   title: {
     default: "Addis Eats | Habesha Food",
     template: "%s | Addis Eats",
