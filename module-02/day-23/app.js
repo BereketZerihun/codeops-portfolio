@@ -15,7 +15,7 @@ async function loadMenuData() {
   try {
     const response = await fetch("data/menu.json");
     if (!response.ok) {
-      throw new Error("Could not fetch data.json");
+      throw new Error("Could not fetch menu.json");
     }
     state.dishes = await response.json();
     displayMenu(state.dishes);
@@ -37,6 +37,9 @@ function displayMenu(items) {
   items.forEach(dish => {
     const dishDiv = document.createElement("div");
     dishDiv.className = "dish";
+
+
+    
 
    
 
