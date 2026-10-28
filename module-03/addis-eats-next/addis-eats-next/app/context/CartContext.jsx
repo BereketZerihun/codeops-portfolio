@@ -7,15 +7,20 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
 
+  // Inside app/context/CartContext.jsx
+
   const addToCart = useCallback((item) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.id === item.id);
-      if (existing) {
-        return prev.map((i) =>
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((i) => i.id === item.id);
+      
+      if (existingItem) {
+        // Create a BRAND NEW array and a BRAND NEW object so React sees the change
+        return prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
-      return [...prev, { ...item, quantity: 1 }];
+      
+      return [...prevItems, { ...item, quantity: 1 }];
     });
   }, []);
 

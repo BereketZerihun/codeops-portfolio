@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AddToCartButton from "./AddToCartButton";
 
+// Image mapping based on the dish slug
 const DISH_IMAGES = {
   "doro-wat": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600",
   "siga-derek-tibs": "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600",
