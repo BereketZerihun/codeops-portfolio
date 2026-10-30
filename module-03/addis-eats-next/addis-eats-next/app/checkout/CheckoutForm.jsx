@@ -66,8 +66,7 @@ export default function CheckoutForm() {
 
       {state?.ok && (
         <p className="form-success">
-          Order placed! Reference: <strong>{state.orderId}</strong>. Go to
-          Orders to track it.
+          Order placed!  successfully! Go to Orders to track it.
         </p>
       )}
     </form>
