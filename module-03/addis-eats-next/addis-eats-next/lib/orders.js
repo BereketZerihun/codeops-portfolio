@@ -1,4 +1,3 @@
-// We use globalThis so the memory survives between requests in the same server instance
 if (!globalThis._ordersStore) {
   globalThis._ordersStore = new Map();
 }

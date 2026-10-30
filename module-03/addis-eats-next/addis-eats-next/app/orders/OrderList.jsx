@@ -1,28 +1,37 @@
 "use client";
 
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import CancelButton from "./CancelButton";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+export default function OrderList() {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default function OrderList({ initialOrders }) {
-  const { data, error } = useSWR("/api/orders", fetcher, {
-    fallbackData: { data: initialOrders }, // Start with server data
-    refreshInterval: 5000,
-    revalidateOnMount: false, // Don't aggressively refetch immediately on load
-    revalidateOnFocus: false, // Don't refetch just because you clicked the window
-  });
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("my_orders") || "[]");
+    setOrders(saved);
+    setLoading(false);
 
-  if (error) return <p className="form-error">Failed to load orders.</p>;
-  if (!data || !data.data) return <p className="form-error">No data available.</p>;
+    const handleStorage = () => {
+      setOrders(JSON.parse(localStorage.getItem("my_orders") || "[]"));
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
-  // Use the data from SWR, but fallback to initialOrders if SWR returns an empty array
-  const orders = data.data.length > 0 ? data.data : initialOrders;
+  if (loading) return <p className="form-help">Loading orders...</p>;
 
   if (orders.length === 0) {
     return <p className="empty-cart">No orders yet.</p>;
   }
+
+  const cancelOrder = (id) => {
+    const updated = orders.map((o) =>
+      o.id === id ? { ...o, status: "cancelled" } : o
+    );
+    setOrders(updated);
+    localStorage.setItem("my_orders", JSON.stringify(updated));
+  };
 
   return (
     <ul className="cart-list">
@@ -49,7 +58,14 @@ export default function OrderList({ initialOrders }) {
             >
               Track
             </Link>
-            {order.status === "pending" && <CancelButton orderId={order.id} />}
+            {order.status === "pending" && (
+              <button
+                className="delete-btn"
+                onClick={() => cancelOrder(order.id)}
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </li>
       ))}

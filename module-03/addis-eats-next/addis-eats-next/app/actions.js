@@ -62,7 +62,7 @@ export async function placeOrder(prevState, formData) {
   revalidatePath("/orders");
   revalidatePath("/kitchen");
 
-  return { ok: true, orderId: order.id };
+  return { ok: true, orderId: order.id, orderData: order };
 }
 
 export async function cancelOrder(orderId) {

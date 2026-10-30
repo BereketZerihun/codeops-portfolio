@@ -1,10 +1,23 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { placeOrder } from "@/app/actions";
+import { useCart } from "@/app/context/CartContext";
 
 export default function CheckoutForm() {
   const [state, formAction, pending] = useActionState(placeOrder, null);
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    if (state?.ok && state.orderData) {
+      const existing = JSON.parse(localStorage.getItem("my_orders") || "[]");
+      localStorage.setItem(
+        "my_orders",
+        JSON.stringify([state.orderData, ...existing])
+      );
+      clearCart();
+    }
+  }, [state, clearCart]);
 
   return (
     <form action={formAction} className="auth-form" noValidate>
@@ -53,7 +66,8 @@ export default function CheckoutForm() {
 
       {state?.ok && (
         <p className="form-success">
-          Order placed. Reference: <strong>{state.orderId}</strong>
+          Order placed! Reference: <strong>{state.orderId}</strong>. Go to
+          Orders to track it.
         </p>
       )}
     </form>
