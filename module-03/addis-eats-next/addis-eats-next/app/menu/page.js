@@ -1,6 +1,12 @@
 import { getAllDishes } from "@/lib/dishes";
 import DishList from "./DishList";
-import FilterShell from "./FilterShell";
+import SearchBar from "./SearchBar";
+
+export const metadata = {
+  title: "Menu",
+  description:
+    "Browse our full menu of traditional Ethiopian stews, tibs, and kitfo.",
+};
 
 export default async function MenuPage() {
   const dishes = await getAllDishes();
@@ -9,9 +15,8 @@ export default async function MenuPage() {
   return (
     <main className="menu-page">
       <h1 className="menu-title">Menu</h1>
-      <FilterShell categories={categories}>
-        <DishList dishes={dishes} />
-      </FilterShell>
+      <SearchBar />
+      <DishList dishes={dishes} categories={categories} />
     </main>
   );
 }

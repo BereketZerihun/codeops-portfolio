@@ -7,7 +7,7 @@ export default function FilterShell({ categories, children }) {
   const options = ["All", ...categories];
 
   return (
-    <div className="filter-shell" data-selected={selected}>
+    <div>
       <div className="filter-bar">
         {options.map((cat) => (
           <button
@@ -19,7 +19,8 @@ export default function FilterShell({ categories, children }) {
           </button>
         ))}
       </div>
-      {children}
+      {/* Pass selected down via React context-like prop through clone */}
+      {typeof children === "function" ? children(selected) : children}
     </div>
   );
 }

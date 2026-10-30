@@ -86,7 +86,7 @@ body {
   font-weight: 700;
 }
 
-/* ---------- MENU ---------- */
+/* ---------- MENU & FILTERS ---------- */
 .menu-page { padding: 32px; }
 .menu-title {
   color: #ff6b6b;
@@ -95,9 +95,25 @@ body {
   letter-spacing: 2px;
 }
 
-.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+/* Horizontal scrollable filter bar */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.filter-bar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
 
 .filter-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
   background: transparent;
   color: #ff6b6b;
   border: 1px solid #cc0000;
@@ -106,9 +122,13 @@ body {
   cursor: pointer;
   font-weight: 600;
   font-family: inherit;
+  font-size: 0.9rem;
 }
 
-.filter-btn.active { background: #cc0000; color: #fff; }
+.filter-btn.active {
+  background: #cc0000;
+  color: #fff;
+}
 
 .category-section { margin-bottom: 48px; }
 
@@ -198,17 +218,6 @@ body {
 .add-btn:hover { background: #ff1a1a; }
 
 .cart-count { color: #ff6b6b; font-size: 0.75rem; }
-
-/* Filter visibility */
-.filter-shell:not([data-selected="All"]) .dish-card { display: none; }
-
-.filter-shell[data-selected="Traditional Stews & Wat"] .dish-card[data-category="Traditional Stews & Wat"],
-.filter-shell[data-selected="Tibs & Grills"] .dish-card[data-category="Tibs & Grills"],
-.filter-shell[data-selected="Raw & Cured Delicacies / Kitfo"] .dish-card[data-category="Raw & Cured Delicacies / Kitfo"],
-.filter-shell[data-selected="Fasting & Vegan / Tsom"] .dish-card[data-category="Fasting & Vegan / Tsom"],
-.filter-shell[data-selected="Beverages & Tej"] .dish-card[data-category="Beverages & Tej"] {
-  display: block;
-}
 
 /* ---------- FORMS & PAGES ---------- */
 .form-page {
@@ -309,7 +318,7 @@ body {
 }
 .delete-btn:hover { background: #ff6b6b; color: #1a0000; }
 
-/* ---------- SEARCH BAR (Day 45) ---------- */
+/* ---------- SEARCH BAR ---------- */
 .search-container {
   margin-bottom: 24px;
   position: relative;
@@ -360,4 +369,24 @@ body {
   color: #ff6b6b;
   margin-top: 8px;
   font-size: 0.9rem;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 12px 16px;
+  }
+  .site-nav {
+    gap: 12px;
+  }
+  .menu-page {
+    padding: 16px;
+  }
+  .dish-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-page {
+    margin: 30px auto;
+    padding: 24px;
+  }
 }
